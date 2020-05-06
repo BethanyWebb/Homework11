@@ -43,18 +43,15 @@ class Store {
     // use the note argument
     // create a new note object with your required fields (text, title, id)
     // write that object to the json file
-  }
+  };
 
   removeNote(id) {
-    
-    
-    note.filter(note => note.id)
+    console.log("remove notes");
+    return this.getNotes()
+        .then(notes => notes.filter(note => note.id !== id))
+        .then(updatedNotes => this.write(updatedNotes))
+};
 
-    // get all notes
-    // remove the note with the given id
-    // and return a list of notes that does NOT have that id (in essence the filtered list)
-  }
-
-}
+};
 
 module.exports = new Store()

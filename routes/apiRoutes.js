@@ -5,6 +5,7 @@
 const store = require("./../db/store");
 const router = require("express").Router();
 
+
 // let note = (title, text);
 
 router.get("./store", function(req,res) {
@@ -18,7 +19,7 @@ router.get("/notes", function(req,res) {
         console.log(notes);
         res.json(notes);
 
-    })
+    });
 
 });
 
@@ -27,19 +28,13 @@ router.post("/notes", function(req,res) {
     var newNote = req.body;
     store.addNote(newNote)
 
-})
+});
 
-// router.post("/notes", function(req,res) {
-//     console.log(req.body);
-    
-// }
-
-router.post('/deleteNote/:id', function (req, res) {
-    console.log(req.params.id);
-    const deleteNotes = note.filter(item => item.id != req.params.id);
-    note = deleteNotes;
-    return res.redirect('/');
-  });
+router.delete("/notes/:id", function(req, res){
+    store.removeNote(req.params.id)
+    .then(() => res.json({ok: true}))
+    .catch(err => res.status(500).json(err));
+});
           
 
 module.exports = router;
